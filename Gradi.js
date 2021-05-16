@@ -1,30 +1,190 @@
 import React, {Component} from 'react';
-import {Text,View,TouchableOpacity} from 'react-native';
+import {
+    SafeAreaView,
+    Text,
+    View,
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    TouchableOpacity
+  } from 'react-native';
+  
+  import {
+    LineChart,
+    BarChart,
+    PieChart,
+    ProgressChart,
+    ContributionGraph,
+    StackedBarChart,
+  } from 'react-native-chart-kit';
+import { Container, Header, Left, Body, Right, Button, Icon, Title , Content, Grid, Col, Row,Center} from 'native-base';
+// DB part 시작
 
-class Fifth extends Component {
+import encoding from 'text-encoding';
+import ReactFileReader from 'react-file-reader';
+
+const decoder = new encoding.TextDecoder();
+
+const {InfluxDB} = require('@influxdata/influxdb-client')
+const {Point} = require('@influxdata/influxdb-client')
+
+const token = 'SaFFVAPgFfA0r8t9hbF_qWse4pJyGsmSnKMwnJYel2avib7OYz7l11mioaA8t9RWx2ZFBl9tgUlVpmgsCEPYSw=='
+const org = 'giant3380@gmail.com'
+const bucket = 'SolarEnergyCheck'
+
+const client = new InfluxDB({url: 'https://us-west-2-1.aws.cloud2.influxdata.com', token: token})
+const queryApi = client.getQueryApi(org)
+
+const query = `from(bucket: "${bucket}") |> range(start: -1h)  |> filter(fn: (r) => r._field == "Gradient")`
+
+
+//const field
+const MyLineChart4 = () => {
+    return (
+      <>
+        <Text style={styles.header}>Gradient</Text>
+        <LineChart
+          data={{
+            labels: ['12', '13', '14', '15', '16', '17'],
+            datasets: [
+              {
+                data: [1.5, 1.3, 1.2, 1.4, 1.2, 1.4],
+                strokeWidth: 2,
+              },
+            ],
+          }}
+          width={Dimensions.get('window').width - 16}
+          height={220}
+          xAxisLabel={'시 '}
+          chartConfig={{
+            backgroundColor: '#1cc910',
+            backgroundGradientFrom: '#eff3ff',
+            backgroundGradientTo: '#efefef',
+            decimalPlaces: 1,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,//차트 내용 컬러
+            labelColor: (opacity = 1) => `rgba(0,0,0, ${opacity})`,//x, y축 라벨컬러
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
+      </>
+    );
+  };
+
+  const MyPieChart = () => {
+    return (
+      <>
+        <Text style={styles.header}>Pie Chart</Text>
+        <PieChart
+          data={[
+            {
+              name: 'Test1',
+              population: 20,
+              color: 'rgba(131, 167, 234, 1)',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            },
+            {
+              name: 'Test2',
+              population: 10,
+              color: '#F00',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            },
+            {
+              name: 'Test3',
+              population: 15,
+              color: 'rgb(0,0,0)',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            },
+            {
+              name: 'Test4',
+              population: 20,
+              color: 'rgb(0, 0, 255)',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            },
+          ]}
+          width={Dimensions.get('window').width - 16}
+          height={220}
+          chartConfig={{
+            backgroundColor: '#1cc910',
+            backgroundGradientFrom: '#eff3ff',
+            backgroundGradientTo: '#efefef',
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+          accessor="population"
+          backgroundColor="transparent"
+          paddingLeft="15"
+          absolute //for the absolute number remove if you want percentage
+        />
+      </>
+    );
+  };
+
+
+class Gradi extends Component {
     render() {
         const {navigation} = this.props;
-
         return (
-            <View>
-            <View style={{width: 70, height: 70, justifyContent: 'center'}} >
-                <TouchableOpacity
-                        onPress={()=>{
-                            navigation.goBack()
-                        }}
-                >
-                    <Text style={{fontSize:20, alignItems: 'center'}}>back</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={{height:600, justifyContent: 'center',alignItems:'center'}}>
-                <Text style={{fontSize:50,alignitems:'center'}}>
-                    기울기
-                </Text>
 
-            </View>
-            </View>
+            <Container>
+                <Header>
+                <Left>
+                <TouchableOpacity onPress={()=>{navigation.goBack()}}>
+                        <Text style = {{color:'white',fontSize: 40}}>{'←'}</Text>
+                        </TouchableOpacity>
+                </Left>
+                
+                <Body style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Title >Gradient                    </Title>
+                </Body>
+                
+                </Header>
+                
+                <SafeAreaView style={{flex: 1}}>
+                    <ScrollView>
+                        <View style={styles.container}>
+                        <View>
+                            <MyLineChart4 />
+                            <MyPieChart />
+                        </View>
+                        </View>
+                    </ScrollView>
+                </SafeAreaView>
+            </Container>
         );
     };
 }
 
-export default Fifth;
+export default Gradi;
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      padding: 10,
+    },
+    header: {
+      textAlign: 'center',
+      fontSize: 18,
+      padding: 16,
+      marginTop: 16,
+    },
+  });
