@@ -6,7 +6,7 @@ import temppage from './Temp';
 import humipage from './Humi';
 import solarpage from './Solar';
 import gradipage from './Gradi';
-import LoadingPage from './Load';
+//import LoadingPage from './Load';
 
 const App = createStackNavigator(
 
