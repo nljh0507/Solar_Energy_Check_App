@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { Container, Header, Left, Body, Right, Button, Icon, Title , Content, Grid, Col, Row,Center} from 'native-base';
+import { Container, Header, Left, Body, Right, Button, Icon, Title , Content, Grid, Col, Row,Center,Badge} from 'native-base';
 
 class First extends Component {
     render() {
@@ -12,8 +12,56 @@ class First extends Component {
                         <Title>SolarCheck</Title>
                     </Body>
                 </Header>
-                <Content>
-                    <View style={{flex: 1}}>    
+                
+                    <Grid style = {{justifyContent: 'center', alignItems: 'center',backgroundColor:'#f0fff0'}}>
+                        <Row>
+                        <Col style ={{justifyContent: 'center',alignItems:'center'}}>
+                            <Button transparent block large light>
+                                <TouchableOpacity onPress={()=> {navigation.navigate("Temp")}}>
+                                    <Text style={{fontSize: 30}}>
+                                    Temperature
+                                    </Text>
+                                </TouchableOpacity>
+                            </Button>
+                        </Col>
+                        <Col style ={{justifyContent: 'center'}}>
+                            <Button transparent block large light>
+                                <TouchableOpacity
+                                    onPress={()=> {navigation.navigate("Humi")}}
+                                    >
+                                    <Text style={{fontSize: 30}}>
+                                    Humidity
+                                    </Text>
+                                </TouchableOpacity>
+                            </Button>
+                        </Col>
+                        </Row>
+                        <Row style={{alignItems: 'center'}}>
+                        <Col style ={{justifyContent: 'center'}}>
+                            <Button transparent block large light>
+                            <TouchableOpacity
+                                onPress={()=> {navigation.navigate("Solar")}}
+                            >
+                                <Text style={{fontSize: 30}}>
+                                    Radiation
+                                </Text>
+                            </TouchableOpacity>
+                            </Button>
+                        </Col>
+                        <Col style ={{justifyContent: 'center'}}>
+                            <Button transparent block large light>
+                            <TouchableOpacity
+                                onPress={()=> {navigation.navigate("Gradi")}}
+                            >
+                                <Text style={{fontSize: 30}}>
+                                Gradient
+                                </Text>
+                            </TouchableOpacity>
+                            </Button>
+                        </Col>
+                        </Row>
+                    </Grid>
+                    {/* <View>
                         <Button block large light>
                             <TouchableOpacity onPress={()=> {navigation.navigate("Temp")}}>
                                 <Text style={{fontSize: 30}}>
@@ -51,8 +99,8 @@ class First extends Component {
                             </Text>
                         </TouchableOpacity>
                         </Button>
-                    </View>
-                </Content>
+                    </View> */}
+                
             </Container>
 
         );
