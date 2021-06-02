@@ -6,13 +6,15 @@ import temppage from './Temp';
 import humipage from './Humi';
 import solarpage from './Solar';
 import gradipage from './Gradi';
-//import LoadingPage from './Load';
-
+import LoadingPage from './Loading';
+import SignupPage from './SignUp';
 const App = createStackNavigator(
 
     {
         
-        Home: {screen:firstpage},
+        Home: {screen:LoadingPage},
+        SignUp: {screen:SignupPage},
+        First: {screen:firstpage},
         Temp: {screen:temppage},
         Humi: {screen:humipage},
         Solar: {screen:solarpage},

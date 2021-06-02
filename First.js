@@ -8,8 +8,13 @@ class First extends Component {
         return (
             <Container>
                 <Header>
-                    <Body style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Title>SolarCheck</Title>
+                <Left>
+                    <TouchableOpacity onPress={()=>{navigation.goBack()}}>
+                        <Text style = {{color:'white',fontSize: 40}}>{'←'}</Text>
+                    </TouchableOpacity>
+                </Left>
+                    <Body style={{justifyContent: 'center'}}>
+                        <Title>        SolarCheck</Title>
                     </Body>
                 </Header>
                 
