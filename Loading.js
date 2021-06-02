@@ -32,10 +32,7 @@ export default function Login({ navigation }) {
                         navigation.navigate('First');
                         //Alert.alert('Welecome!', 'GetItem')
                     }
-                    else
-                    {
-                      Alert.alert('No!', 'GetItem')
-                    }
+                    
                 })
         } catch (error) {
             console.log(error);

@@ -74,7 +74,7 @@ export default function SignUp({ navigation }) {
               placeholder="Password" />
             </Item>
           </Form>
-          <CustonButton
+          <CustomButton
                 title='sign up'
                 color='#1eb900'
                 onPressFunction={setData}
