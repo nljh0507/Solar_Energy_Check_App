@@ -20,7 +20,7 @@ export default function SignUp({ navigation }) {
             AsyncStorage.getItem('UserData')
                 .then(value => {
                     if (value != null) {
-                        navigation.navigate('Loading');
+                        //navigation.navigate('Login');
                     }
                 })
         } catch (error) {
@@ -38,7 +38,7 @@ export default function SignUp({ navigation }) {
                     Password: password
                 }
                 await AsyncStorage.setItem('UserData', JSON.stringify(user));
-                navigation.navigate('Loading');
+                navigation.goBack()
                 Alert.alert('Success!', 'Your data has been updated.');
             } catch (error) {
                 console.log(error);
